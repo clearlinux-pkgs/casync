@@ -1,0 +1,33 @@
+From b40c902624f213b92b3b18cbb1822106cd3050ed Mon Sep 17 00:00:00 2001
+From: Lennart Poettering <lennart@poettering.net>
+Date: Thu, 1 Mar 2018 22:16:40 +0100
+Subject: [PATCH 5/5] meson: drop -ffast-math from gcc options (#136)
+
+We don't do much floating point processing, and given that #133 has
+shown that the inaccuracies introduced by -ffast-math have an effect on
+us, let's sidestep the whole issue and turn off the whole thing for us.
+
+After all reproducibility is supposed to be a big thing in casync, hence
+we should really come to the same results on all archs, and all
+compilers and all versions thereof.
+
+See: #133
+---
+ meson.build | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 889c217..c1fd439 100644
+--- a/meson.build
++++ b/meson.build
+@@ -44,7 +44,6 @@ c_args = '''
+         -Werror=sign-compare
+         -Wdate-time
+         -Wnested-externs
+-        -ffast-math
+         -fno-common
+         -fdiagnostics-show-option
+         -fno-strict-aliasing
+-- 
+2.18.0
+

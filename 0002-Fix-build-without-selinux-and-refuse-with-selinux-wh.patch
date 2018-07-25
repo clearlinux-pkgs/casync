@@ -1,0 +1,98 @@
+From ab7ef83b5aef07af6e8628eeab353a3fb043fadd Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Zbigniew=20J=C4=99drzejewski-Szmek?= <zbyszek@in.waw.pl>
+Date: Wed, 26 Jul 2017 09:52:40 -0400
+Subject: [PATCH] Fix build without selinux and refuse --with=selinux when
+ compiled without
+
+Fixes #73.
+
+The output is pretty crappy:
+
+  $ build/casync --with=selinux make ...
+  Failed to run synchronizer: Operation not supported
+
+but that's being tracked as #44.
+---
+ src/cadecoder.c |  2 +-
+ src/caencoder.c | 13 ++++++++++---
+ 2 files changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/src/cadecoder.c b/src/cadecoder.c
+index 5deca52..aad8e31 100644
+--- a/src/cadecoder.c
++++ b/src/cadecoder.c
+@@ -13,7 +13,7 @@
+ #include <linux/msdos_fs.h>
+ 
+ #if HAVE_SELINUX
+-#include <selinux/selinux.h>
++#  include <selinux/selinux.h>
+ #endif
+ 
+ #include "cadecoder.h"
+diff --git a/src/caencoder.c b/src/caencoder.c
+index eb58bbb..63fd4e2 100644
+--- a/src/caencoder.c
++++ b/src/caencoder.c
+@@ -21,7 +21,7 @@
+ #include <linux/msdos_fs.h>
+ 
+ #if HAVE_SELINUX
+-#include <selinux/selinux.h>
++#  include <selinux/selinux.h>
+ #endif
+ 
+ #include "caencoder.h"
+@@ -264,10 +264,12 @@ static void ca_encoder_node_free(CaEncoderNode *n) {
+ 
+         n->fcaps = mfree(n->fcaps);
+ 
++#if HAVE_SELINUX
+         if (n->selinux_label) {
+                 freecon(n->selinux_label);
+                 n->selinux_label = NULL;
+         }
++#endif
+ 
+         n->device_size = UINT64_MAX;
+ 
+@@ -658,18 +660,20 @@ static int ca_encoder_node_read_selinux_label(
+                 CaEncoder *e,
+                 CaEncoderNode *n) {
+ 
++#if HAVE_SELINUX
+         char *label;
+         int r;
++#endif
+ 
+         assert(e);
+         assert(n);
+ 
+         if ((e->feature_flags & CA_FORMAT_WITH_SELINUX) == 0)
+                 return 0;
++#if HAVE_SELINUX
+         if (n->selinux_label_valid)
+                 return 0;
+ 
+-#if HAVE_SELINUX
+         if (n->fd >= 0)
+                 r = fgetfilecon(n->fd, &label) < 0 ? -errno : 0;
+         else {
+@@ -706,10 +710,13 @@ static int ca_encoder_node_read_selinux_label(
+ 
+                 n->selinux_label = label;
+         }
+-#endif
+ 
+         n->selinux_label_valid = true;
+         return 0;
++
++#else
++        return -EOPNOTSUPP;
++#endif
+ }
+ 
+ static int compare_xattr(const void *a, const void *b) {
+-- 
+2.18.0
+
