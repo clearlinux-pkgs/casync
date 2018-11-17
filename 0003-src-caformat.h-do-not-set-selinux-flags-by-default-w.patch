@@ -1,7 +1,7 @@
-From f05bb8c6578c8dac50bc0a92dd951a6f86690492 Mon Sep 17 00:00:00 2001
+From 2733be724c23e6e488983d0993fe1fecc1bcb8b7 Mon Sep 17 00:00:00 2001
 From: Enrico Jorns <e.joerns@tu-bs.de>
 Date: Mon, 29 Jan 2018 19:27:13 +0100
-Subject: [PATCH 3/3] src: caformat.h: do not set selinux flags by default when
+Subject: [PATCH 3/6] src: caformat.h: do not set selinux flags by default when
  compiled without selinux (#127)
 
 ---
@@ -43,5 +43,5 @@ index 8c6c12b..7abe8c5 100644
  
          CA_FORMAT_DEFAULT = /* The default set of flags */
 -- 
-2.18.0
+2.19.1
 

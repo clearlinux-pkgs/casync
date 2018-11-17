@@ -1,7 +1,7 @@
-From ab7ef83b5aef07af6e8628eeab353a3fb043fadd Mon Sep 17 00:00:00 2001
+From 15aa01548d772605d7d2e1d37b42b5dff91be072 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Zbigniew=20J=C4=99drzejewski-Szmek?= <zbyszek@in.waw.pl>
 Date: Wed, 26 Jul 2017 09:52:40 -0400
-Subject: [PATCH] Fix build without selinux and refuse --with=selinux when
+Subject: [PATCH 2/6] Fix build without selinux and refuse --with=selinux when
  compiled without
 
 Fixes #73.
@@ -94,5 +94,5 @@ index eb58bbb..63fd4e2 100644
  
  static int compare_xattr(const void *a, const void *b) {
 -- 
-2.18.0
+2.19.1
 

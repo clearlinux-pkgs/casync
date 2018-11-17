@@ -1,7 +1,7 @@
-From 42b8c68addc8aed0a829b7678ef0ceefd47dc113 Mon Sep 17 00:00:00 2001
+From 708b56da3fe76e41d92afb73f5f6248d69ad3d63 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Zbigniew=20J=C4=99drzejewski-Szmek?= <zbyszek@in.waw.pl>
 Date: Wed, 26 Jul 2017 10:34:03 -0400
-Subject: [PATCH] Fix segv in ca_remote_forget_chunk
+Subject: [PATCH 1/6] Fix segv in ca_remote_forget_chunk
 
 With gcc-7.1.1-6.fc27:
 
@@ -29,5 +29,5 @@ index 7d49923..755c3a6 100644
                                  r = -EBADMSG;
                                  goto finish;
 -- 
-2.18.0
+2.19.1
 

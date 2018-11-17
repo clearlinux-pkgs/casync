@@ -1,7 +1,7 @@
-From 46a622ae51d66b70370fc3b8cd5c96657708b7c6 Mon Sep 17 00:00:00 2001
+From 092f1f366bcdfdbe5d5b44ad316df147c843adac Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Zbigniew=20J=C4=99drzejewski-Szmek?= <zbyszek@in.waw.pl>
 Date: Mon, 12 Feb 2018 16:25:41 +0100
-Subject: [PATCH 4/4] cachunker: round the expected average chunk size (#135)
+Subject: [PATCH 4/6] cachunker: round the expected average chunk size (#135)
 
 For some reason, in F28, we get 4095 as the result of the expression.
 I would expect to always get 4096, but in principle 4096- 1/2 ulp is also a
@@ -40,5 +40,5 @@ index 138cfd4..d1f583e 100644
          return 0;
  }
 -- 
-2.18.0
+2.19.1
 

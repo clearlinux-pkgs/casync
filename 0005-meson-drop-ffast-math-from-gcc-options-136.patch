@@ -1,7 +1,7 @@
-From b40c902624f213b92b3b18cbb1822106cd3050ed Mon Sep 17 00:00:00 2001
+From 493c0f228ee3ba9d7a47a5826d42a0f2e54fb779 Mon Sep 17 00:00:00 2001
 From: Lennart Poettering <lennart@poettering.net>
 Date: Thu, 1 Mar 2018 22:16:40 +0100
-Subject: [PATCH 5/5] meson: drop -ffast-math from gcc options (#136)
+Subject: [PATCH 5/6] meson: drop -ffast-math from gcc options (#136)
 
 We don't do much floating point processing, and given that #133 has
 shown that the inaccuracies introduced by -ffast-math have an effect on
@@ -29,5 +29,5 @@ index 889c217..c1fd439 100644
          -fdiagnostics-show-option
          -fno-strict-aliasing
 -- 
-2.18.0
+2.19.1
 

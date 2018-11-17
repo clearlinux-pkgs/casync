@@ -4,16 +4,16 @@
 #
 Name     : casync
 Version  : 2
-Release  : 1
+Release  : 2
 URL      : https://github.com/systemd/casync/archive/v2.tar.gz
 Source0  : https://github.com/systemd/casync/archive/v2.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : LGPL-2.1
-Requires: casync-bin
-Requires: casync-config
-Requires: casync-license
-Requires: casync-man
+Requires: casync-bin = %{version}-%{release}
+Requires: casync-config = %{version}-%{release}
+Requires: casync-license = %{version}-%{release}
+Requires: casync-man = %{version}-%{release}
 Requires: acl-lib
 BuildRequires : Sphinx
 BuildRequires : acl-dev
@@ -30,6 +30,7 @@ Patch2: 0002-Fix-build-without-selinux-and-refuse-with-selinux-wh.patch
 Patch3: 0003-src-caformat.h-do-not-set-selinux-flags-by-default-w.patch
 Patch4: 0004-cachunker-round-the-expected-average-chunk-size-135.patch
 Patch5: 0005-meson-drop-ffast-math-from-gcc-options-136.patch
+Patch6: 0006-meson.build-pass-D_GNU_SOURCE-when-checking-for-func.patch
 
 %description
 # casync â Content Addressable Data Synchronizer
@@ -39,9 +40,9 @@ What is this?
 %package bin
 Summary: bin components for the casync package.
 Group: Binaries
-Requires: casync-config
-Requires: casync-license
-Requires: casync-man
+Requires: casync-config = %{version}-%{release}
+Requires: casync-license = %{version}-%{release}
+Requires: casync-man = %{version}-%{release}
 
 %description bin
 bin components for the casync package.
@@ -78,13 +79,14 @@ man components for the casync package.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1532483165
+export SOURCE_DATE_EPOCH=1542412979
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --prefix /usr --buildtype=plain -Dselinux=false  builddir
 ninja -v -C builddir
 
@@ -96,8 +98,8 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 ninja -v -C builddir test
 
 %install
-mkdir -p %{buildroot}/usr/share/doc/casync
-cp LICENSE.LGPL2.1 %{buildroot}/usr/share/doc/casync/LICENSE.LGPL2.1
+mkdir -p %{buildroot}/usr/share/package-licenses/casync
+cp LICENSE.LGPL2.1 %{buildroot}/usr/share/package-licenses/casync/LICENSE.LGPL2.1
 DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
@@ -116,9 +118,9 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/lib/udev/rules.d/75-casync.rules
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/casync/LICENSE.LGPL2.1
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/casync/LICENSE.LGPL2.1
 
 %files man
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/man/man1/casync.1
