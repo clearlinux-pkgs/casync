@@ -1,0 +1,4 @@
+v2.219.8f6c84
+bash-completion-dev
+pkgconfig(bash-completion)
+pkgconfig(libudev)

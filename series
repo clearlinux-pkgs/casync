@@ -1,6 +1,0 @@
-0001-Fix-segv-in-ca_remote_forget_chunk.patch
-0002-Fix-build-without-selinux-and-refuse-with-selinux-wh.patch
-0003-src-caformat.h-do-not-set-selinux-flags-by-default-w.patch
-0004-cachunker-round-the-expected-average-chunk-size-135.patch
-0005-meson-drop-ffast-math-from-gcc-options-136.patch
-0006-meson.build-pass-D_GNU_SOURCE-when-checking-for-func.patch
