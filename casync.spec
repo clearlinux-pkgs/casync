@@ -4,7 +4,7 @@
 #
 Name     : casync
 Version  : v2.219.8f6c84
-Release  : 4
+Release  : 5
 URL      : https://github.com/systemd/casync/archive/a8f6c841ccfe59ca8c68aad64df170b64042dce8/v2-219-ga8f6c84.tar.gz
 Source0  : https://github.com/systemd/casync/archive/a8f6c841ccfe59ca8c68aad64df170b64042dce8/v2-219-ga8f6c84.tar.gz
 Summary  : No detailed summary available
@@ -80,17 +80,18 @@ man components for the casync package.
 
 %prep
 %setup -q -n casync-a8f6c841ccfe59ca8c68aad64df170b64042dce8
+cd %{_builddir}/casync-a8f6c841ccfe59ca8c68aad64df170b64042dce8
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568688935
+export SOURCE_DATE_EPOCH=1604364720
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain -Dselinux=false  builddir
 ninja -v -C builddir
@@ -104,7 +105,7 @@ ninja -v -C builddir test
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/casync
-cp LICENSE.LGPL2.1 %{buildroot}/usr/share/package-licenses/casync/LICENSE.LGPL2.1
+cp %{_builddir}/casync-a8f6c841ccfe59ca8c68aad64df170b64042dce8/LICENSE.LGPL2.1 %{buildroot}/usr/share/package-licenses/casync/01a6b4bf79aca9b556822601186afab86e8c4fbf
 DESTDIR=%{buildroot} ninja -C builddir install
 
 %files
@@ -128,7 +129,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/casync/LICENSE.LGPL2.1
+/usr/share/package-licenses/casync/01a6b4bf79aca9b556822601186afab86e8c4fbf
 
 %files man
 %defattr(0644,root,root,0755)
