@@ -4,7 +4,7 @@
 #
 Name     : casync
 Version  : v2.219.8f6c84
-Release  : 5
+Release  : 6
 URL      : https://github.com/systemd/casync/archive/a8f6c841ccfe59ca8c68aad64df170b64042dce8/v2-219-ga8f6c84.tar.gz
 Source0  : https://github.com/systemd/casync/archive/a8f6c841ccfe59ca8c68aad64df170b64042dce8/v2-219-ga8f6c84.tar.gz
 Summary  : No detailed summary available
@@ -16,7 +16,6 @@ Requires: casync-data = %{version}-%{release}
 Requires: casync-license = %{version}-%{release}
 Requires: casync-man = %{version}-%{release}
 Requires: acl-lib
-BuildRequires : Sphinx
 BuildRequires : acl-dev
 BuildRequires : bash-completion-dev
 BuildRequires : buildreq-meson
@@ -28,6 +27,7 @@ BuildRequires : pkgconfig(libudev)
 BuildRequires : pkgconfig(libzstd)
 BuildRequires : pkgconfig(openssl)
 BuildRequires : pkgconfig(zlib)
+BuildRequires : pypi-sphinx
 BuildRequires : rsync
 
 %description
@@ -87,7 +87,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1604364720
+export SOURCE_DATE_EPOCH=1641854627
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
