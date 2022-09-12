@@ -4,7 +4,7 @@
 #
 Name     : casync
 Version  : v2.219.8f6c84
-Release  : 6
+Release  : 7
 URL      : https://github.com/systemd/casync/archive/a8f6c841ccfe59ca8c68aad64df170b64042dce8/v2-219-ga8f6c84.tar.gz
 Source0  : https://github.com/systemd/casync/archive/a8f6c841ccfe59ca8c68aad64df170b64042dce8/v2-219-ga8f6c84.tar.gz
 Summary  : No detailed summary available
